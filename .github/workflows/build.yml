@@ -7,6 +7,36 @@ env:
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
 jobs:
+  # === FreeBSD ===
+  freebsd:
+    runs-on: ubuntu-latest
+    name: Compile for FreeBSD
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+          
+      - name: Build
+        uses: vmactions/freebsd-vm@v1
+        with:
+          usesh: true
+          prepare: |
+            pkg install -y curl gcc git cmake ruby libglvnd libglu freeglut mesa-devel mesa-dri alsa-lib doxygen
+            
+          run:
+            cd build
+            cmake -DCMAKE_BUILD_TYPE=MinSizeRel -DBUILD_WITH_ALL=On -DBUILD_STATIC=On ..
+            cmake --build . --parallel 2
+            
+      - name: Deploy
+        uses: actions/upload-artifact@v4
+        with:
+          name: "tic80-freebsd"
+          path: |
+            build/bin/tic80
+            build/bin/*.so            
+
   # === Windows XP ===
   winxp:
     runs-on: windows-2019
