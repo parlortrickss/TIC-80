@@ -24,7 +24,7 @@ jobs:
           prepare: |
             pkg install -y curl gcc git cmake ruby libglvnd libglu freeglut mesa-devel mesa-dri alsa-lib doxygen
             
-          run:
+          run: |
             cd build
             cmake -DCMAKE_BUILD_TYPE=MinSizeRel -DBUILD_WITH_ALL=On -DBUILD_STATIC=On ..
             cmake --build . --parallel 2
