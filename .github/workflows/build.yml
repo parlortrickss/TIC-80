@@ -21,11 +21,11 @@ jobs:
         with:
           usesh: true
           prepare: |
-            pkg install -y curl gcc git cmake ruby libglvnd libglu freeglut mesa-devel mesa-dri alsa-lib doxygen
+            pkg install -y gmake meson ninja curl gcc git cmake ruby ruby32-gems libglvnd libglu freeglut mesa-devel mesa-dri alsa-lib doxygen
             gem install rake            
           run: |
             cd build
-            cmake -DCMAKE_BUILD_TYPE=MinSizeRel -DBUILD_STATIC=On -DBUILD_WITH_LUA=On -DBUILD_WITH_MOON=On -DBUILD_WITH_FENNEL=On -DBUILD_WITH_WREN=On -DBUILD_WITH_RUBY=On -DBUILD_WITH_WASM=On -DBUILD_WITH_SCHEME=On -DBUILD_WITH_SQUIRREL=On -DBUILD_WITH_PYTHON=On -DBUILD_WITH_JS=On ..
+            cmake -DCMAKE_BUILD_TYPE=MinSizeRel -DBUILD_STATIC=On -DBUILD_WITH_LUA=On -DBUILD_WITH_MOON=On -DBUILD_WITH_FENNEL=On -DBUILD_WITH_WREN=On -DBUILD_WITH_RUBY=On -DBUILD_WITH_WASM=On -DBUILD_WITH_SCHEME=On -DBUILD_WITH_SQUIRREL=On -DBUILD_WITH_PYTHON=On -DBUILD_WITH_JS=On -DBUILD_WITH_JANET=On ..
             cmake --build . --parallel 2
             
       - name: Deploy
